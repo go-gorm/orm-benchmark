@@ -15,8 +15,8 @@ require (
 	gopkg.in/bsm/ratelimit.v1 v1.0.0-20160220154919-db14e161995a // indirect
 	gopkg.in/gorp.v1 v1.7.2
 	gopkg.in/pg.v4 v4.9.5
-	gorm.io/driver/postgres v0.0.0-20200602015520-15fcc29eb286
-	gorm.io/gorm v0.2.6
+	gorm.io/driver/postgres v1.0.5
+	gorm.io/gorm v1.20.5
 	xorm.io/xorm v0.8.2
 )
 
