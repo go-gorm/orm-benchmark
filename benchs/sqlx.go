@@ -27,7 +27,7 @@ func init() {
 		st.AddBenchmark("Read", 200*ORM_MULTI, SQLXRead)
 		st.AddBenchmark("MultiRead limit 100", 200*ORM_MULTI, SQLXReadSlice)
 
-		sqlxDB, _ = sqlx.Open("postgres", ORM_SOURCE)
+		sqlxDB, _ = sqlx.Open("pgx", ORM_SOURCE)
 	}
 }
 
