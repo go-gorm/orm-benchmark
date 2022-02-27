@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
+	"os"
 	"runtime"
 	"strings"
 	"time"
@@ -39,11 +40,12 @@ func (opts ListOpts) Shuffle() {
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	os.Setenv("PGSSLMODE", "disable")
 
 	var orms ListOpts
 	flag.IntVar(&benchs.ORM_MAX_IDLE, "max_idle", 200, "max idle conns")
 	flag.IntVar(&benchs.ORM_MAX_CONN, "max_conn", 200, "max open conns")
-	flag.StringVar(&benchs.ORM_SOURCE, "source", "host=localhost user=postgres password=postgres dbname=test sslmode=disable", "postgres dsn source")
+	flag.StringVar(&benchs.ORM_SOURCE, "source", "postgres://postgres:postgres@localhost:5432/test?sslmode=disable", "postgres dsn source")
 	flag.IntVar(&benchs.ORM_MULTI, "multi", 1, "base query nums x multi")
 	flag.Var(&orms, "orm", "orm name: all, "+strings.Join(benchs.BrandNames, ", "))
 	flag.Parse()
