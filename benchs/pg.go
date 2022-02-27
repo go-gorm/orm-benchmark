@@ -1,6 +1,7 @@
 package benchs
 
 import (
+	"crypto/tls"
 	"fmt"
 
 	"gopkg.in/pg.v4"
@@ -18,10 +19,11 @@ func init() {
 		st.AddBenchmark("MultiRead limit 100", 200*ORM_MULTI, PgReadSlice)
 
 		pgdb = pg.Connect(&pg.Options{
-			Addr:     "localhost:5432",
-			User:     "postgres",
-			Password: "postgres",
-			Database: "test",
+			Addr:      "localhost:5432",
+			User:      "postgres",
+			Password:  "postgres",
+			Database:  "test",
+			TLSConfig: &tls.Config{InsecureSkipVerify: true},
 		})
 	}
 }

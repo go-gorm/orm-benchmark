@@ -146,6 +146,7 @@ func (b *B) launch() {
 	}()
 
 	runtime.GC()
+	runtime.GC()
 	b.ResetTimer()
 	b.StartTimer()
 	b.F(b)

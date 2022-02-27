@@ -2,6 +2,8 @@ package benchs
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 
 	gormv1 "github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -23,6 +25,7 @@ func init() {
 			panic(err)
 		}
 		gormV1DB = conn
+		gormV1DB.SetLogger(gormv1.Logger{log.New(ioutil.Discard, "\r\n", 0)})
 
 		gormV1DB.Callback().Create().Remove("gorm:begin_transaction")
 		gormV1DB.Callback().Update().Remove("gorm:begin_transaction")
