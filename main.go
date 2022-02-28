@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"os"
 	"runtime"
+	"runtime/pprof"
 	"strings"
 	"time"
 
@@ -42,13 +43,39 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	os.Setenv("PGSSLMODE", "disable")
 
-	var orms ListOpts
+	var (
+		orms                 ListOpts
+		enableCPU, enableMem bool
+	)
+
 	flag.IntVar(&benchs.ORM_MAX_IDLE, "max_idle", 200, "max idle conns")
 	flag.IntVar(&benchs.ORM_MAX_CONN, "max_conn", 200, "max open conns")
 	flag.StringVar(&benchs.ORM_SOURCE, "source", "postgres://postgres:postgres@localhost:5432/test?sslmode=disable", "postgres dsn source")
 	flag.IntVar(&benchs.ORM_MULTI, "multi", 1, "base query nums x multi")
 	flag.Var(&orms, "orm", "orm name: all, "+strings.Join(benchs.BrandNames, ", "))
+	flag.BoolVar(&enableCPU, "cpu", false, "enable cpu profile")
+	flag.BoolVar(&enableMem, "mem", false, "enable mem profile")
+
 	flag.Parse()
+
+	if enableCPU {
+		f, err := os.Create("cpu.pprof")
+		if err != nil {
+			panic(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
+	if enableMem {
+		f, err := os.Create("mem.pprof")
+		if err != nil {
+			panic(err)
+		}
+		defer func() {
+			pprof.WriteHeapProfile(f)
+			f.Close()
+		}()
+	}
 
 	var all bool
 
