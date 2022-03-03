@@ -185,6 +185,8 @@ func (st *suite) run() {
 		b.run()
 		fmt.Printf("%25s: %6d ", b.Name, b.N)
 		fmt.Println(b.result.String())
+		// sleep 2 second to for db
+		time.Sleep(2 * time.Second)
 	}
 }
 
