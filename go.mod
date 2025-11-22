@@ -1,6 +1,6 @@
 module github.com/yusaer/orm-benchmark
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/astaxie/beego v1.12.3
@@ -42,9 +42,9 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.opentelemetry.io/otel v1.37.0 // indirect
 	go.opentelemetry.io/otel/trace v1.37.0 // indirect
-	golang.org/x/crypto v0.40.0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	mellium.im/sasl v0.3.2 // indirect
 	xorm.io/builder v0.3.9 // indirect
 )
